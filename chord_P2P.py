@@ -30,7 +30,7 @@ log = open('log.txt', 'w')
 dlog = open('delay.txt', 'w')
 llog = open('latency.txt', 'w')
 
-def reg2bs():													#Registration
+def reg2bs():											#Registration
 	sock1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  
 	sock1.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 	sock1.connect(bs_address)
@@ -63,7 +63,7 @@ def reg2bs():													#Registration
 	sock1.close()
 	return
 
-def ftable():													#Build Finger Table
+def ftable():											#Build Finger Table
 	global s
 	global p
 	global h4 
@@ -87,7 +87,7 @@ def ftable():													#Build Finger Table
 				break
 	print "Predecessor: ", p
 	print "Successor: ", s
-	h5 = h[:]					#: missing
+	h5 = h[:]					
 	h5.append(myid)	
 	h5.sort()
 	for i in range(0, 16):
@@ -107,7 +107,7 @@ def ftable():													#Build Finger Table
 					abcd = 1
 	return
 
-def unreg2bs():														#Unregistration
+def unreg2bs():												#Unregistration
 	sock2 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  
 	sock2.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 	sock2.connect(bs_address)
@@ -133,7 +133,7 @@ def unreg2bs():														#Unregistration
 	sock2.close()
         return
 
-def ufg(choice):													#Update Finger Table
+def ufg(choice):											#Update Finger Table
 	if (choice == '0'):
 		ufcmd0 = "UPFIN 0 " + myip + " " + str(myport) + " " + str(myid)
 		ufcmd0 = "00" + str(len(ufcmd0)) + " " + ufcmd0
@@ -167,7 +167,7 @@ def ufg(choice):													#Update Finger Table
 		print "Invalid choice"
 	return
 
-def resources2():													#Picking Resources
+def resources2():											#Picking Resources
 	target1 = open('r.txt').read().splitlines()
     	target2 = open('entries.txt', 'w')
 	target3 = open('key.txt', 'w')
@@ -231,21 +231,21 @@ def resources2():													#Picking Resources
 	duplicate()
 	return
 
-def resources():													#Display Resources
+def resources():											#Display Resources
 	target4 = open('entries.txt', 'r+')
 	for line in target4:
 		print line
 	target4.close()
 	return
 
-def keytable():														#Display Key Table
+def keytable():												#Display Key Table
 	target5 = open('key.txt', 'r+')
 	for line in target5:
 		print line
 	target5.close()
 	return
 
-def addkey():														#Add a key in network
+def addkey():												#Add a key in network
 	addf = raw_input("Enter the file name: ")
 	target5 = open('entries.txt', 'ab')
 	target5.write(addf)
@@ -354,7 +354,7 @@ def givekey():												#Give Keys to Successor
 	open("entries.txt", 'w').close()
 	return
 
-def getkey():															#Get Keys from Successor
+def getkey():													#Get Keys from Successor
 	sock5 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  
 	sock5.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 	gsid = dict[s].split()
@@ -375,7 +375,7 @@ def getkey():															#Get Keys from Successor
 	sock5.close()
 	return
 
-def search(fin):														#Searching Resources
+def search(fin):												#Searching Resources
 	lats = time.time()
 	fin = fin.lower()
 	finh = hashlib.sha1(fin)
@@ -686,7 +686,7 @@ def thread(connection):									#Multi-threading
 		efg = 4
 	connection.close()
 	return
-															#Console Thread
+													#Console Thread
 def t1(conn):																				
 	while True:
 		print '0: SETUP NODE, 1: REG, 2: UNREG, 3: UPDATE FINGER, 4: GET KEYS, 5: GIVE KEYS, 6: ADD KEYS, 7: SEARCH, 8: RESOURCES, 9: KEYTABLE, 10: FINGERTABLE, 11. DETAILS, 12. TEARDOWN'
@@ -784,7 +784,7 @@ def duplicate():
 	for line in lines_set1:
 	    	out.write(line)
 	
-if __name__=='__main__':											#Main function
+if __name__=='__main__':										#Main function
 	conn = "ac"
 	start_new_thread(t1 ,(conn,))	
 	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  
